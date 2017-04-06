@@ -25,6 +25,7 @@ const propTypes = forbidExtraProps({
   onChange: PropTypes.func,
   onClearDate: PropTypes.func,
   onFocus: PropTypes.func,
+  onClose: PropTypes.func,
   onKeyDownShiftTab: PropTypes.func,
   onKeyDownTab: PropTypes.func,
 
@@ -48,6 +49,7 @@ const defaultProps = {
   onChange() {},
   onClearDate() {},
   onFocus() {},
+  onClose() {},
   onKeyDownShiftTab() {},
   onKeyDownTab() {},
 
@@ -95,6 +97,7 @@ export default class SingleDatePickerInput extends React.Component {
       onClearDate,
       onChange,
       onFocus,
+      onClose,
       onKeyDownShiftTab,
       onKeyDownTab,
       screenReaderMessage,
@@ -119,6 +122,7 @@ export default class SingleDatePickerInput extends React.Component {
 
           onChange={onChange}
           onFocus={onFocus}
+          onClose={onClose}
           onKeyDownShiftTab={onKeyDownShiftTab}
           onKeyDownTab={onKeyDownTab}
         />

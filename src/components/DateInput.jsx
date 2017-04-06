@@ -17,6 +17,7 @@ const propTypes = forbidExtraProps({
 
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
+  onClose: PropTypes.func,
   onKeyDownShiftTab: PropTypes.func,
   onKeyDownTab: PropTypes.func,
 
@@ -35,6 +36,7 @@ const defaultProps = {
 
   onChange() {},
   onFocus() {},
+  onClose() {},
   onKeyDownShiftTab() {},
   onKeyDownTab() {},
 
@@ -109,6 +111,7 @@ export default class DateInput extends React.Component {
       focused,
       showCaret,
       onFocus,
+      onClose,
       disabled,
       required,
     } = this.props;
@@ -135,6 +138,7 @@ export default class DateInput extends React.Component {
           onChange={this.onChange}
           onKeyDown={this.onKeyDown}
           onFocus={onFocus}
+          onClose={onClose}
           placeholder={placeholder}
           autoComplete="off"
           disabled={disabled}

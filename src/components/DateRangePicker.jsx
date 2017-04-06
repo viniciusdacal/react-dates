@@ -74,6 +74,8 @@ const defaultProps = {
   onPrevMonthClick() {},
   onNextMonthClick() {},
 
+  onClose() {},
+
   // day presentation and interaction related props
   renderDay: null,
   minimumNights: 1,
@@ -141,7 +143,7 @@ export default class DateRangePicker extends React.Component {
   }
 
   onOutsideClick() {
-    const { onFocusChange } = this.props;
+    const { onFocusChange, onClose, startDate, endDate } = this.props;
     if (!this.isOpened()) return;
 
     this.setState({
@@ -150,6 +152,7 @@ export default class DateRangePicker extends React.Component {
     });
 
     onFocusChange(null);
+    onClose({ startDate, endDate });
   }
 
   onDateRangePickerInputFocus(focusedInput) {
@@ -280,6 +283,7 @@ export default class DateRangePicker extends React.Component {
       renderCalendarInfo,
       initialVisibleMonth,
       customCloseIcon,
+      onClose,
     } = this.props;
     const { dayPickerContainerStyles, isDayPickerFocused } = this.state;
 
@@ -307,6 +311,7 @@ export default class DateRangePicker extends React.Component {
           onNextMonthClick={onNextMonthClick}
           onDatesChange={onDatesChange}
           onFocusChange={onFocusChange}
+          onClose={onClose}
           focusedInput={focusedInput}
           startDate={startDate}
           endDate={endDate}
@@ -370,6 +375,7 @@ export default class DateRangePicker extends React.Component {
       reopenPickerOnClearDates,
       keepOpenOnDateSelect,
       onDatesChange,
+      onClose,
     } = this.props;
 
     const { isDateRangePickerInputFocused } = this.state;
@@ -403,6 +409,7 @@ export default class DateRangePicker extends React.Component {
             withFullScreenPortal={withFullScreenPortal}
             onDatesChange={onDatesChange}
             onFocusChange={this.onDateRangePickerInputFocus}
+            onClose={onClose}
             phrases={phrases}
             screenReaderMessage={screenReaderInputMessage}
             isFocused={isDateRangePickerInputFocused}

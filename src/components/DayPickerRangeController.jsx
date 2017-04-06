@@ -31,6 +31,7 @@ const propTypes = forbidExtraProps({
 
   focusedInput: FocusedInputShape,
   onFocusChange: PropTypes.func,
+  onClose: PropTypes.func,
 
   keepOpenOnDateSelect: PropTypes.bool,
   minimumNights: PropTypes.number,
@@ -70,6 +71,7 @@ const defaultProps = {
 
   focusedInput: null,
   onFocusChange() {},
+  onClose() {},
 
   keepOpenOnDateSelect: false,
   minimumNights: 1,
@@ -128,11 +130,11 @@ export default class DayPickerRangeController extends React.Component {
     if (e) e.preventDefault();
     if (this.isBlocked(day)) return;
 
-    const { focusedInput } = this.props;
+    const { focusedInput, onFocusChange, onClose } = this.props;
     let { startDate, endDate } = this.props;
 
     if (focusedInput === START_DATE) {
-      this.props.onFocusChange(END_DATE);
+      onFocusChange(END_DATE);
 
       startDate = day;
 
@@ -144,10 +146,13 @@ export default class DayPickerRangeController extends React.Component {
 
       if (!startDate) {
         endDate = day;
-        this.props.onFocusChange(START_DATE);
+        onFocusChange(START_DATE);
       } else if (isInclusivelyAfterDay(day, firstAllowedEndDate)) {
         endDate = day;
-        if (!keepOpenOnDateSelect) this.props.onFocusChange(null);
+        if (!keepOpenOnDateSelect) {
+          onFocusChange(null);
+          onClose({ startDate, endDate });
+        }
       } else {
         startDate = day;
         endDate = null;
